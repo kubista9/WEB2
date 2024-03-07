@@ -29,10 +29,6 @@ function onClick(e) {
 
 function placeMark(cell, mark) {
     //classList - provides acess to the list of CSS classes currently applied to the element
-    let imageUrl = mark === 'X' ? 'url("x.png")' : 'url("o.png")';
-    cell.style.backgroundImage = imageUrl;
-    cell.style.backgroundPosition = 'center';
-    cell.styke.backgroundRepeat = 'no-repeat';
     cell.classList.add(mark);
 }
 

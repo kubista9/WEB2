@@ -1,24 +1,26 @@
 /* style.css */
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 10% 0% 0% 20%;
     height: 100vh;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+
+    background-image: url('../images/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 7px;
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: #fff;
     border: 1px solid #ccc;
     display: flex;
