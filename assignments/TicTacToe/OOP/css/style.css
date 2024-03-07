@@ -31,3 +31,12 @@ body {
 .cell:hover {
     background-color: #ddd;
 }
+
+.X {
+    background-image: url('../images/x.png');
+}
+  
+.O {
+    background-image: url('../images/o.png');
+}
+  
