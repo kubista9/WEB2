@@ -1,4 +1,4 @@
-// script.js {}
+// OOP.js {}
    
 class Game  {
     //An empty constructor in a class is not strictly necessary. If you don't define a constructor in a class, JavaScript automatically provides an empty constructor
