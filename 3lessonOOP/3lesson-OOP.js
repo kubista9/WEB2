@@ -1,6 +1,5 @@
 //03 Exercises: OOP  {}
 
-
 //1. Using Composition
 function createCircle(center, radius){
     return {
