@@ -1,24 +1,26 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fetch Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB2 - O5.01 Asynchronous programming</title>
 </head>
-
 <body>
-    <img>
-    <script>
-        fetch("https://pokeapi.co/api/v2/pokemon/wartortle")
-            .then(response => {
-                if (response.ok) return response.json()
-                throw new Error("Network response was not OK")
-            })
-            .then(pokemon => {
-                const imageUrl = pokemon.sprites.front_default
-                document.querySelector("img").src = imageUrl
-            })
-            .catch(err => console.log(err))
-    </script>
+    <body>
+        <img>
+        <script>
+            fetch("https://pokeapi.co/api/v2/pokemon/wartortle")
+                .then(response => {
+                    if (response.ok) return response.json()
+                    throw new Error("Network response was not OK")
+                })
+                .then(pokemon => {
+                    const imageUrl = pokemon.sprites.front_default
+                    document.querySelector("img").src = imageUrl
+                })
+                .catch(err => console.log(err))
+        </script>
+    </body>
+    
 </body>
-
 </html>
