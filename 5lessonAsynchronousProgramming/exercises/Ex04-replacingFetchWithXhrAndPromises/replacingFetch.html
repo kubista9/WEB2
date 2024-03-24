@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 4. Replicating Fetch With XHR and Promises</title>
+</head>
+<body>
+
+    <div id="pokemonName"></div>
+    <div id="pokemonId"></div>
+    <div id="pokemonType"></div>
+    <div id="pokemonImage"></div>
+
+    <script>
+        async function customFetch(url){
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    if(xhr.status === 200){
+                        resolve(xhr.response);
+                    } else {
+                        reject(new Error(xhr.statusText));
+                    }
+                };
+                xhr.onerror = () => reject(new Error('Network error'));
+                xhr.send();
+            });
+        }
+        
+        async function fetchPokemonData() {
+            try {
+                const pokemonData = await customFetch("https://pokeapi.co/api/v2/pokemon/ditto");
+
+                const pokemonName = pokemonData.name;
+                const pokemonId = pokemonData.id;
+                const pokemonType = pokemonData.types[0].type.name;
+                const pokemonImage = pokemonData.sprites.front_default;
+
+                document.getElementById("pokemonName").textContent = pokemonName;
+                document.getElementById("pokemonId").textContent = pokemonId;
+                document.getElementById("pokemonType").textContent = pokemonType;
+
+                const imgElement = document.createElement('img');
+                imgElement.src = pokemonImage;
+                document.getElementById("pokemonImage").appendChild(imgElement);
+            } catch (error) {
+                console.error("There was a problem with your fetch operation:", error);
+            }
+        }
+
+        fetchPokemonData();
+
+
+    </script>
+    
+</body>
+</html>

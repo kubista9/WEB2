@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ex 5. Pokéballs Are Magic</title>
+    </head>
+
+    <body onload="printTotalWeight()">
+        <script>
+            async function printTotalWeight() {
+    const pokemonNames = ["pikachu","bulbasaur","charmander","squirtle","butterfree","pidgeotto"];
+    const fetchPromises = pokemonNames.map(name => getPokemon(name));
+
+    try {
+        const responses = await Promise.all(fetchPromises);
+        const pokemonData = await Promise.all(responses.map(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }));
+        const totalWeight = pokemonData.reduce((acc, pokemon) => acc + pokemon.weight, 0);
+        console.log(totalWeight);
+    } catch (error) {
+        console.error("There was a problem with your fetch operation", error);
+    }
+}
+
+function getPokemon(name) {
+    return fetch("https://pokeapi.co/api/v2/pokemon/" + name)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response;
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            throw error; // Rethrow the error to be caught by the calling function
+        });
+}
+
+        </script>
+    </body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ex 1. A Childhood Callback</title>
+    <title>Ex 2. Converting to promises</title>
 </head>
 <body>
     <div id="pokemonName"></div>
@@ -12,11 +12,14 @@
     <div id="pokemonImage"></div>
 
     <script>
-        const xhr = new XMLHttpRequest()
-        xhr.open("GET","https://pokeapi.co/api/v2/pokemon/ditto")
-        xhr.onload = () => {
-            const pokemonData = JSON.parse(xhr.responseText)
-
+        fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+        .then(response => {
+            if(!response.ok){
+                throw new Error("Netowrk repsonse was not ok");
+            }
+            return response.json();
+        })
+        .then(pokemonData => {
             const pokemonName = pokemonData.name;
             const pokemonId = pokemonData.id;
             const pokemonType = pokemonData.types[0].type.name;
@@ -29,9 +32,11 @@
             const imgElement = document.createElement('img');
             imgElement.src = pokemonImage;
             document.getElementById("pokemonImage").appendChild(imgElement);
-        }
-        xhr.onerror = () => console.log("Network Error!")
-        xhr.send()
+
+        })
+        .catch(error => {
+            console.error("There was a problem with oyur fetch operation", error);
+        });
     </script>
 </body>
 </html>
