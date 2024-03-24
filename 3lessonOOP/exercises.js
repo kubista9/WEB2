@@ -213,7 +213,7 @@ console.log(jakub.toString());
 const cabel = createEmployee("tukabel", undefined, 9884);
 console.log(cabel.toString());
 
-solution
+// solution
 function createPerson(name, age) {
     return {
         getName: () => name,
@@ -240,7 +240,7 @@ function createEmployee({ name, age, salary }) {
 const santa = createEmployee({ name: "Santa Clause", age: 1752, salary: 0 })
 console.log(santa.toString())
 
-5. Another Approach
+// 5. Another Approach
 
 class Point{
     // no return so no use of arrow functions
@@ -359,9 +359,8 @@ class Point {
 }
 
 console.log(new Circle(new Point(1, 2), 4).toString())
-// → Circle(Center: [1,2], Radius: 4)
 
-// 6. Extending Classes
+//6. Extending Classes
 class Person{
     #name
     #age
@@ -371,11 +370,11 @@ class Person{
     }
 
     getName(){
-        return this.name;
+        return this.#name;
     }
 
     getAge(){
-        return this.age;
+        return this.#age;
     }
 
     setName(newName){
@@ -383,11 +382,11 @@ class Person{
     }
 
     setAge(newAge){
-        this.age = newAge;
+        this.#age = newAge;
     }
 
     toString(){
-        `[${this.#name},${this.#age}]`;
+        return `[${this.#name},${this.#age}]`;
     }
     equals(otherPerson){
         return this.name === otherPerson.name && this.age === otherPerson.age;
@@ -396,9 +395,32 @@ class Person{
 
 class Employee{
     #salary
-    const person = new Person()
-    return {
-        ...person,
+    #name
+    #age
+    constructor(name, age, salary){
+        this.#salary = salary
+        const person = new Person(name, age);
+        this.#name = name
+        this.#age = age
+    }
 
+    getSalary(){
+        return this.#salary;
+    }
+
+    setSalary(salary){
+        this.#salary = salary
+    }
+
+    toString(){
+        return `[${this.#name},${this.#age},${this.#name}]`
+    }
+    equals(otherEmployee){
+        return this.#age === otherEmployee.age && this.#name === otherEmployee.name && this.#salary === otherEmployee.salary
     }
 }
+
+const person = new Person("jakub",44);
+const employee = new Employee("denmark",32,8594)
+console.log(person.getAge())
+console.log(employee.getSalary())
