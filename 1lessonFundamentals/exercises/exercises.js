@@ -126,6 +126,27 @@ console.log(range(5, 2, -1))
 console.log(sum(range(1, 10)))
 // → 55
 
-//7. Currying 
+// 7. Currying 
+function range(start){
+    return function(end){
+        if(end === undefined){
+            return function(end){
+                return range(start)(end);
+            };
+        }
+        let result = [];
+        for(let i = start; i <= end; i++){
+            result.push(i);
+        }
+        return result;
+    }
+}
 
+let rangeFrom3To = range(3);
+let rangeFrom7To = range(7);
 
+console.log(rangeFrom3To(3));
+console.log(rangeFrom3To(8));
+console.log(rangeFrom7To(9));
+
+//8. Reversing an Array 
