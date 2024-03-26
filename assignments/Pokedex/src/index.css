@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#paginator {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#paginator > div {
+  margin: 30px 20px;
+  padding: 10px 20px;
+  outline: 1px solid black;
+}
+
+#paginator > div p {
+  text-align: center;
+}

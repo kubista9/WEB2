@@ -6,7 +6,7 @@ function PokemonDetails() {
 const [pokemon, setPokemon] = useState([]);
 
  useEffect(() => {
-  fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
   .then(response => response.json())
       .then(data => {
         return Promise.all(data.results.map(pokemon => 
@@ -30,12 +30,12 @@ const [pokemon, setPokemon] = useState([]);
 // the empty array is to tell react that effect does not depend on any values fomr prps therefore the callback function is only called once
 
 return (
-  <div>
+  <div id='paginator'>
     {pokemon.map((pokemon, index) => (
       <div key={index}>
-        <div>{pokemon.name}</div>
-        <div>{pokemon.id}</div>
-        <div>{pokemon.type}</div>
+        <p>{pokemon.name}</p>
+        <p>{pokemon.id}</p>
+        <p>{pokemon.type}</p>
         <div>
           <img src={pokemon.image} alt={pokemon.name} />
         </div>
