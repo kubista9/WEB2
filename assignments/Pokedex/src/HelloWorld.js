@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from 'react';
 
 function PokemonDetails() {
-const [pokemon, setPokemon] = useState({});
+ const [pokemon, setPokemon] = useState([]);
 
-useEffect(() => {
-fetch("https://pokeapi.co/api/v2/pokemon/ditto")
-.then(response => {
-if (!response.ok) {
-throw new Error("Network response was not ok");
-}
-return response.json();
-})
-.then(pokemonData => {
-const pokemonName = pokemonData.name;
-const pokemonId = pokemonData.id;
-const pokemonType = pokemonData.types[0].type.name;
-const pokemonImage = pokemonData.sprites.front_default;
+ useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+      .then(response => response.json())
+      .then(data => {
+        // Map over the results to fetch details for each Pokémon
+        return Promise.all(data.results.map(pokemon => fetch(pokemon.url).then(res => res.json())));
+      })
+      .then(pokemonDataArray => {
+        // Process the array of Pokémon data
+        const pokemonDetails = pokemonDataArray.map(pokemonData => ({
+          name: pokemonData.name,
+          id: pokemonData.id,
+          type: pokemonData.types[0].type.name,
+          image: pokemonData.sprites.front_default
+        }));
+        setPokemon(pokemonDetails);
+      })
+      .catch(error => {
+        console.error("There was a problem with your fetch operation", error);
+      });
+ }, []);
 
-setPokemon({
-name: pokemonName,
-id: pokemonId,
-type: pokemonType,
-image: pokemonImage
-});
-})
-.catch(error => {
-console.error("There was a problem with your fetch operation", error);
-});
-}, []);
-
-return (
-<div>
-<div>{pokemon.name}</div>
-<div>{pokemon.id}</div>
-<div>{pokemon.type}</div>
-<div>
-<img src={pokemon.image} alt={pokemon.name} />
-</div>
-</div>
-);
+ return (
+    <div>
+      {pokemon.map((pokemon, index) => (
+        <div key={index}>
+          <div>{pokemon.name}</div>
+          <div>{pokemon.id}</div>
+          <div>{pokemon.type}</div>
+          <div>
+            <img src={pokemon.image} alt={pokemon.name} />
+          </div>
+        </div>
+      ))}
+    </div>
+ );
 }
 
 export default PokemonDetails;
