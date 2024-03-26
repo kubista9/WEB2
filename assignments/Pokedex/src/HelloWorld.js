@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const HelloWorld = () => {
-  function sayHello() {
-    alert('Hello, World!');
-  }
+function PokemonDetails() {
+const [pokemon, setPokemon] = useState({});
 
-  return (
-    <button onClick={sayHello}>Click me!</button>
-  );
-};
+useEffect(() => {
+fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+.then(response => {
+if (!response.ok) {
+throw new Error("Network response was not ok");
+}
+return response.json();
+})
+.then(pokemonData => {
+const pokemonName = pokemonData.name;
+const pokemonId = pokemonData.id;
+const pokemonType = pokemonData.types[0].type.name;
+const pokemonImage = pokemonData.sprites.front_default;
 
-export default HelloWorld;
+setPokemon({
+name: pokemonName,
+id: pokemonId,
+type: pokemonType,
+image: pokemonImage
+});
+})
+.catch(error => {
+console.error("There was a problem with your fetch operation", error);
+});
+}, []);
+
+return (
+<div>
+<div>{pokemon.name}</div>
+<div>{pokemon.id}</div>
+<div>{pokemon.type}</div>
+<div>
+<img src={pokemon.image} alt={pokemon.name} />
+</div>
+</div>
+);
+}
+
+export default PokemonDetails;

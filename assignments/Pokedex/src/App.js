@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from 'react';
 
-function App() {
- const [pokemons, setPokemons] = useState([]);
+//useState -> hook 
+//the hook takes an initial state value as an argument and returns an updated state value, whenever the setter function is called 
+function PokemonDetails() {
+ const [pokemon, setPokemon] = useState({});
 
  useEffect(() => {
-    const fetchPokemons = async () => {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
-      const data = await response.json();
-      setPokemons(data.results);
-    };
+    fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(pokemonData => {
+        const pokemonName = pokemonData.name;
+        const pokemonId = pokemonData.id;
+        const pokemonType = pokemonData.types[0].type.name;
+        const pokemonImage = pokemonData.sprites.front_default;
 
-    fetchPokemons();
+        setPokemon({
+          name: pokemonName,
+          id: pokemonId,
+          type: pokemonType,
+          image: pokemonImage
+        });
+      })
+      .catch(error => {
+        console.error("There was a problem with your fetch operation", error);
+      });
  }, []);
+// the empty array is to tell react that effect does not depend on any values fomr prps therefore the callback function is only called once
 
  return (
     <div>
-      {pokemons.map((pokemon, index) => (
-        <div key={index}>
-          <img src={pokemon.url} alt={pokemon.name} />
-          <p>{pokemon.name}</p>
-        </div>
-      ))}
+      <div>{pokemon.name}</div>
+      <div>{pokemon.id}</div>
+      <div>{pokemon.type}</div>
+      <div>
+        <img src={pokemon.image} alt={pokemon.name} />
+      </div>
     </div>
  );
 }
 
-export default App;
+export default PokemonDetails;
