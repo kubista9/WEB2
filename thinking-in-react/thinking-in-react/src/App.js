@@ -1,16 +1,4 @@
-<html>
-
-<head>
-  <title>Simple React Application</title>
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="text/babel">
-    import { useState } from 'react';
+import { useState } from 'react';
 
 function FilterableProductTable({ products }) {
   const [filterText, setFilterText] = useState('');
@@ -20,11 +8,9 @@ function FilterableProductTable({ products }) {
     <div>
       <SearchBar 
         filterText={filterText} 
-        inStockOnly={inStockOnly} 
-        onFilterTextChange={setFilterText} 
-        onInStockOnlyChange={setInStockOnly} />
+        inStockOnly={inStockOnly} />
       <ProductTable 
-        products={products} 
+        products={products}
         filterText={filterText}
         inStockOnly={inStockOnly} />
     </div>
@@ -98,23 +84,17 @@ function ProductTable({ products, filterText, inStockOnly }) {
   );
 }
 
-function SearchBar({
-  filterText,
-  inStockOnly,
-  onFilterTextChange,
-  onInStockOnlyChange
-}) {
+function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
       <input 
         type="text" 
-        value={filterText} placeholder="Search..." 
-        onChange={(e) => onFilterTextChange(e.target.value)} />
+        value={filterText} 
+        placeholder="Search..."/>
       <label>
         <input 
           type="checkbox" 
-          checked={inStockOnly} 
-          onChange={(e) => onInStockOnlyChange(e.target.checked)} />
+          checked={inStockOnly} />
         {' '}
         Only show products in stock
       </label>
@@ -134,12 +114,3 @@ const PRODUCTS = [
 export default function App() {
   return <FilterableProductTable products={PRODUCTS} />;
 }
-
-
-    const root = ReactDOM.createRoot(document.getElementById("root"))
-    root.render(<App />)
-
-  </script>
-</body>
-
-</html>
