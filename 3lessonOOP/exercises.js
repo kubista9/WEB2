@@ -204,9 +204,6 @@ function createEmployee(name, age, salary){
     return employee;
 }
 
-const santa = createEmployee("Santa", 78, 0);
-console.log(santa.toString());
-
 const jakub = createEmployee("jakub", 7666, undefined);
 console.log(jakub.toString());
 
@@ -237,8 +234,8 @@ function createEmployee({ name, age, salary }) {
     }
 }
 
-const santa = createEmployee({ name: "Santa Clause", age: 1752, salary: 0 })
-console.log(santa.toString())
+const santa2 = createEmployee({ name: "Santa Clause", age: 1752, salary: 0 })
+console.log(santa2.toString())
 
 // 5. Another Approach
 
@@ -300,7 +297,7 @@ console.log(point.toString());
 const circle = new Circle(point, 5);
 console.log(circle.toString());
 
-solution 
+//solution 
 class Circle {
     #center
     #radius
@@ -424,3 +421,101 @@ const person = new Person("jakub",44);
 const employee = new Employee("denmark",32,8594)
 console.log(person.getAge())
 console.log(employee.getSalary())
+
+//solution 
+class Person {
+    #name
+    #age
+
+    constructor(name, age) {
+        this.#name = name
+        this.#age = age
+    }
+
+    getName() {
+        return this.#name
+    }
+
+    setName(name) {
+        this.#name = name
+    }
+
+    getAge() {
+        return this.#age
+    }
+
+    setAge(age) {
+        this.#age = age
+    }
+
+    toString() {
+        return `Name: ${this.#name}, Age: ${this.#age}`
+    }
+
+    equals(person) {
+        return person.getName() === this.#name && person.getAge() === this.#age
+    }
+}
+
+class Employee extends Person {
+    #salary
+
+    constructor({ name, age, salary }) {
+        super(name, age)
+        this.#salary = salary
+    }
+
+    getSalary() {
+        return this.#salary
+    }
+
+    setSalary(salary) {
+        this.#salary = salary
+    }
+
+    toString() {
+        return `${susper.toString()}, Salary: ${this.#salary}`
+    }
+
+    equals(employee) {
+        return super.equals(employee) && employee.getSalary() === this.#salary
+    }
+}
+
+const santa = new Employee({ name: "Santa Clause", age: 1752, salary: 0 })
+console.log(santa.toString())
+// → Name: Santa Clause, Age: 1752, Salary: 0
+
+//7. A Vector Type
+class Vector{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    };
+
+    plus(vector){
+        return new Vector(this.x + vector.x, this.y + vector.y);
+    };
+
+    minus(vector){
+        return new Vector(this.x - vector.x, this.y - vector.y);
+    }
+
+    getLenght(){
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+}
+
+
+console.log(new Vector(1, 2).plus(new Vector(2, 3)))
+// → Vec{x: 3, y: 5}
+console.log(new Vector(1, 2).minus(new Vector(2, 3)))
+// → Vec{x: -1, y: -1}
+console.log(new Vector(3, 4).getLenght())
+// → 5
+
+//8. Borrowing a Method
+let obj = { one: true, two: true, hasOwnProperty: true };
+
+// Fix this call
+console.log(Object.prototype.hasOwnProperty.call(obj, "one")); // → true
