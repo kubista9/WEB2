@@ -1,0 +1,27 @@
+{
+  "name": "8lessontesting",
+  "version": "1.0.0",
+  "description": "8 lesson testing ",
+  "main": "(index.js) app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kubista9/WEB2.git"
+  },
+  "keywords": [
+    "jest",
+    "react"
+  ],
+  "author": "Jakub Kuka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kubista9/WEB2/issues"
+  },
+  "homepage": "https://github.com/kubista9/WEB2#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.4",
+    "jest": "^29.7.0"
+  }
+}
