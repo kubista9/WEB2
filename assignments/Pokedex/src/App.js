@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import Pagination from 'react-js-pagination'
 
 //useState -> hook 
 //the hook takes an initial state value as an argument and returns an updated state value, whenever the setter function is called 
 function PokemonDetails() {
 const [pokemon, setPokemon] = useState([]);
+const [activePage, setActivePage] = useState(1);
+const [itemsCountPerPage, setItemsCountPerPage] = useState(20);
 
- useEffect(() => {
-  fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
-  .then(response => response.json())
-      .then(data => {
-        return Promise.all(data.results.map(pokemon => 
-          fetch(pokemon.url)
-          .then(response => response.json())
-          ))
-      })
-      .then(pokemonDataArray => {
-        const pokemonDetails = pokemonDataArray.map( pokemonData => ({
-          name: pokemonData.name,
-          id: pokemonData.id,
-          type: pokemonData.types[0].type.name,
-          image: pokemonData.sprites.front_default
-        }));
-        setPokemon(pokemonDetails);
-      })
-      .catch(error => {
-        console.error("There was a problem with your fetch operation", error);
-      });
- }, []);
-// the empty array is to tell react that effect does not depend on any values fomr prps therefore the callback function is only called once
+useEffect( () => {
+  const fetchPokemon = async () => {
+    const offset = (activePage - 1) * itemsCountPerPage;
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${itemsCountPerPage}&offset=${offset}`);
+    const data = await response.json();
+    const pokemonDataArray = await Promise.all(data.results.map(pokemon => 
+      fetch(pokemon.url).then(response => response.json())
+      ));
+    const pokemonDetails = pokemonDataArray.map(pokemonData => ({
+      name: pokemonData.name,
+      id: pokemonData.id,
+      type: pokemonData.types[0].type.name,
+      image: pokemonData.sprites.frontDefault
+    }));  
+    setPokemon(pokemonDetails);
+  };
+  fetchPokemon();
+ }, [activePage, itemsCountPerPage]);
+
+ const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+ };
 
 return (
   <div id='paginator'>
@@ -41,6 +43,13 @@ return (
         </div>
       </div>
     ))}
+    <Pagination
+    activePage={activePage}
+    itemsCountPerPage={itemsCountPerPage}
+    totalItemsCount={pokemon.length}
+    pageRangeDisplayed={5}
+    onChange={handlePageChange}
+    />
   </div>
 );
 }
