@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from 'react-js-pagination';
 
 function PokemonDetails() {
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemonList, setPokemonList] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [itemsCountPerPage, setItemsCountPerPage] = useState(20);
   const [totalPokemonCount, setTotalPokemonCount] = useState(0);
@@ -22,15 +22,8 @@ function PokemonDetails() {
           )
         );
 
-        const pokemonDetails = pokemonDataArray.map((pokemonData) => ({
-          name: pokemonData.name,
-          id: pokemonData.id,
-          type: pokemonData.types[0]?.type.name, // Safely access type name
-          image: pokemonData.sprites.front_default,
-        }));
-
-        setPokemon(pokemonDetails);
-        setTotalPokemonCount(data.count); // Set total count of Pokemon
+        setPokemonList(pokemonDataArray);
+        setTotalPokemonCount(data.count);
       } catch (error) {
         console.error('Error fetching Pokémon:', error);
       }
@@ -43,15 +36,26 @@ function PokemonDetails() {
     setActivePage(pageNumber);
   };
 
+  const handlePokemonClick = (pokemon) => {
+    const additionalInfo = `Type(s): ${pokemon.types.map((type) => type.type.name).join(', ')}\n`
+      + `Stats:\n`
+      + `${pokemon.stats.map((stat) => `${stat.stat.name}: ${stat.base_stat}`).join('\n')}\n`
+      + `Abilities: ${pokemon.abilities.map((ability) => ability.ability.name).join(', ')}\n`
+      + `Height: ${pokemon.height / 10} m\n`
+      + `Weight: ${pokemon.weight / 10} kg`;
+
+    alert(additionalInfo);
+  };
+
   return (
     <div>
       <div id="pokemons">
-        {pokemon.map((pokemonData, index) => (
-          <div key={index} className="pokemon-card">
-            <p>{pokemonData.name}</p>
-            <p>{pokemonData.id}</p>
-            <p>{pokemonData.type}</p>
-            <img src={pokemonData.image} alt={pokemonData.name} />
+        {pokemonList.map((pokemon, index) => (
+          <div key={index} className="pokemon-card" onClick={() => handlePokemonClick(pokemon)}>
+            <p>{pokemon.name}</p>
+            <p>{pokemon.id}</p>
+            <p>{pokemon.types.map((type) => type.type.name)}</p>
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
           </div>
         ))}
       </div>
