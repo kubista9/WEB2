@@ -44,26 +44,29 @@ function PokemonDetails() {
   };
 
   return (
-    <div id="paginator">
-      {pokemon.map((pokemon, index) => (
-        <div key={index}>
-          <p>{pokemon.name}</p>
-          <p>{pokemon.id}</p>
-          <p>{pokemon.type}</p>
-          <div>
-            <img src={pokemon.image} alt={pokemon.name} />
+    <div>
+      <div id="pokemons">
+        {pokemon.map((pokemonData, index) => (
+          <div key={index} className="pokemon-card">
+            <p>{pokemonData.name}</p>
+            <p>{pokemonData.id}</p>
+            <p>{pokemonData.type}</p>
+            <img src={pokemonData.image} alt={pokemonData.name} />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
-      {/* Pagination component */}
-      <Pagination
-        activePage={activePage}
-        itemsCountPerPage={itemsCountPerPage}
-        totalItemsCount={totalPokemonCount} // Use total count for pagination
-        pageRangeDisplayed={5}
-        onChange={handlePageChange}
-      />
+      <div id="pagination-container">
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={itemsCountPerPage}
+          totalItemsCount={totalPokemonCount}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          itemClass="pagination-item"
+          linkClass="pagination-link"
+        />
+      </div>
     </div>
   );
 }
