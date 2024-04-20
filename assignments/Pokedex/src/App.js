@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import About from './routes/About';
 import Pokedex from './routes/Pokedex';
 import Home from './routes/Home';
@@ -22,11 +22,11 @@ function App() {
             </ul>
           </nav>
 
-          <Switch>
+          <Routes>
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/pokedex" component={Pokedex} />
-          </Switch>
+          </Routes>
       </Router>
     </div>
     
