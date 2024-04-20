@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from 'react-js-pagination';
 import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
+import About from './routes/About';
+import Pokedex from './routes/Pokedex';
 
 function PokemonDetails() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -50,30 +52,50 @@ function PokemonDetails() {
 
   return (
     <Router>
-      <div>
-        <div id="pokemons">
-          {pokemonList.map((pokemon, index) => (
-            <div key={index} className="pokemon-card" onClick={() => handlePokemonClick(pokemon)}>
-              <p>{pokemon.name}</p>
-              <p>{pokemon.id}</p>
-              <p>{pokemon.types.map((type) => type.type.name)}</p>
-              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <div className='home-page'>
+        <Switch>
+          <Route path="/">
+            <div id="pokemons">
+            {pokemonList.map((pokemon, index) => (
+              <div key={index} className="pokemon-card" onClick={() => handlePokemonClick(pokemon)}>
+                <p>{pokemon.name}</p>
+                <p>{pokemon.id}</p>
+                <p>{pokemon.types.map((type) => type.type.name)}</p>
+                <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+              </div>
+            ))}
+          </div>
+
+          <div id="pagination-container">
+            <Pagination
+              activePage={activePage}
+              itemsCountPerPage={itemsCountPerPage}
+              totalItemsCount={totalPokemonCount}
+              pageRangeDisplayed={5}
+              onChange={handlePageChange}
+              itemClass="pagination-item"
+              linkClass="pagination-link"
+            />
             </div>
-          ))}
+          </Route>
+        </Switch>
+      </div>
+
+        <div className='about-page'>
+            <Switch>
+              <Route path="/">
+                <About/>
+              </Route>
+            </Switch>
         </div>
 
-        <div id="pagination-container">
-          <Pagination
-            activePage={activePage}
-            itemsCountPerPage={itemsCountPerPage}
-            totalItemsCount={totalPokemonCount}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-            itemClass="pagination-item"
-            linkClass="pagination-link"
-          />
+        <div className='pokedex-page'>
+          <Switch>
+            <Route path="/">
+              <Pokedex />
+            </Route>
+          </Switch>
         </div>
-      </div>
     </Router>
   );
 }
