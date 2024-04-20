@@ -23,11 +23,11 @@ function App() {
           </nav>
 
           <Routes>
-            <Route path="/home" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/pokedex" component={Pokedex} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/pokedex" element={<Pokedex />} />
           </Routes>
-      </Router>
+        </Router>
     </div>
     
     </div>
