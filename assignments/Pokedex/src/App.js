@@ -1,103 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import Pagination from 'react-js-pagination';
-import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import About from './routes/About';
 import Pokedex from './routes/Pokedex';
+import Home from './routes/Home';
 
-function PokemonDetails() {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [activePage, setActivePage] = useState(1);
-  const [itemsCountPerPage, setItemsCountPerPage] = useState(20);
-  const [totalPokemonCount, setTotalPokemonCount] = useState(0);
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      try {
-        const offset = (activePage - 1) * itemsCountPerPage;
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=${itemsCountPerPage}&offset=${offset}`
-        );
-        const data = await response.json();
-
-        const pokemonDataArray = await Promise.all(
-          data.results.map((pokemon) =>
-            fetch(pokemon.url).then((response) => response.json())
-          )
-        );
-
-        setPokemonList(pokemonDataArray);
-        setTotalPokemonCount(data.count);
-      } catch (error) {
-        console.error('Error fetching Pokémon:', error);
-      }
-    };
-
-    fetchPokemon();
-  }, [activePage, itemsCountPerPage]);
-
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
-  };
-
-  const handlePokemonClick = (pokemon) => {
-    const additionalInfo = `Type(s): ${pokemon.types.map((type) => type.type.name).join(', ')}\n`
-      + `Stats:\n`
-      + `${pokemon.stats.map((stat) => `${stat.stat.name}: ${stat.base_stat}`).join('\n')}\n`
-      + `Abilities: ${pokemon.abilities.map((ability) => ability.ability.name).join(', ')}\n`
-      + `Height: ${pokemon.height / 10} m\n`
-      + `Weight: ${pokemon.weight / 10} kg`;
-
-    alert(additionalInfo);
-  };
-
+function App() {
   return (
     <Router>
-      <div className='home-page'>
-        <Switch>
-          <Route path="/">
-            <div id="pokemons">
-            {pokemonList.map((pokemon, index) => (
-              <div key={index} className="pokemon-card" onClick={() => handlePokemonClick(pokemon)}>
-                <p>{pokemon.name}</p>
-                <p>{pokemon.id}</p>
-                <p>{pokemon.types.map((type) => type.type.name)}</p>
-                <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-              </div>
-            ))}
-          </div>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/home">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/pokedex">Pokedex</Link>
+          </li>
+        </ul>
+      </nav>
 
-          <div id="pagination-container">
-            <Pagination
-              activePage={activePage}
-              itemsCountPerPage={itemsCountPerPage}
-              totalItemsCount={totalPokemonCount}
-              pageRangeDisplayed={5}
-              onChange={handlePageChange}
-              itemClass="pagination-item"
-              linkClass="pagination-link"
-            />
-            </div>
-          </Route>
-        </Switch>
-      </div>
-
-        <div className='about-page'>
-            <Switch>
-              <Route path="/">
-                <About/>
-              </Route>
-            </Switch>
-        </div>
-
-        <div className='pokedex-page'>
-          <Switch>
-            <Route path="/">
-              <Pokedex />
-            </Route>
-          </Switch>
-        </div>
-    </Router>
+      <Switch>
+        <Route path="/home" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/pokedex" component={Pokedex} />
+      </Switch>
+    </div>
+  </Router>
   );
-}
+ }
+ 
+ export default App;
+  
 
-export default PokemonDetails;
+
