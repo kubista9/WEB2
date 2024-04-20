@@ -5,29 +5,32 @@ import Home from './routes/Home';
 
 function App() {
   return (
-    <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/pokedex">Pokedex</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className='main-page'>
+      <div className='menu'>
+      <Router>
+          <nav className='navbar'>
+            <ul>
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/pokedex">Pokedex</Link>
+              </li>
+            </ul>
+          </nav>
 
-      <Switch>
-        <Route path="/home" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/pokedex" component={Pokedex} />
-      </Switch>
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/pokedex" component={Pokedex} />
+          </Switch>
+      </Router>
     </div>
-  </Router>
+    
+    </div>
   );
  }
  
