@@ -12,3 +12,5 @@ const PokedexPage = () => {
         </div>
     )
 }
+
+export default PokedexPage;
