@@ -1,0 +1,15 @@
+{
+  "name": "9-lesson-testing-exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.4",
+    "jest": "^29.7.0"
+  }
+}
