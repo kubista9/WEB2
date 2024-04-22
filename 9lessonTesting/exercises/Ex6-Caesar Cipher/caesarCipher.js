@@ -1,18 +1,22 @@
-// Ex6 - Caesar Cipher 
+// Ex6 - Caesar Cipher s
 
-/* function caesarCipher(message, factor){
-    
-}  */
+function caesarCipher(message, factor){
+    let cipherText = '';
+    factor = factor % 26;
 
-let message = "abcd";
-encryptedMessage = '';
-let factor = 1;
-k = factor % 26;
-
-for (let i = 0; i < message.length; i++) {
-    let encryptedChar = message.charCodeAt(i) + 1;
-    let decrypteddChar = String.fromCharCode(encryptedChar);
-    encryptedMessage += decrypteddChar;
+    for (let i = 0; i < message.length; i++) {
+        if (message[i] === " ") {
+            cipherText += " ";
+        }
+        if ((message[i].charCodeAt() >= 65 && message[i].charCodeAt() <= 90) || (message[i].charCodeAt() >= 97 && message[i].charCodeAt() <= 122)){
+            let encryptedChar = message.charCodeAt(i) + factor;
+            let decryptedChar = String.fromCharCode(encryptedChar);
+            cipherText += decryptedChar;
+        }
+    }
+    return cipherText;
 }
 
-console.log(encryptedMessage)
+const message = "defend the east wall of the castle";
+const factor = 1;
+console.log(caesarCipher(message, factor));
