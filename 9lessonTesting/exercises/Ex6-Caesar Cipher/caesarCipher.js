@@ -1,5 +1,6 @@
 // Ex6 - Caesar Cipher s
 
+
 function caesarCipher(message, factor){
     let cipherText = '';
     factor = factor % 26;
@@ -17,6 +18,7 @@ function caesarCipher(message, factor){
     return cipherText;
 }
 
-const message = "defend the east wall of the castle";
+const message = "abcdefghijklmnopqrstuvwxyz";
 const factor = 1;
 console.log(caesarCipher(message, factor));
+
