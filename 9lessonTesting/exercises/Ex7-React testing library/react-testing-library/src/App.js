@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import Counter from './Counter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+test('increments and decrements count', () => {
+  const {getByText} = render(<Counter />);
+  const incrementButton = getByText('Increment');
+  const decrementButton = getByText('Decrement');
+  const count = getByText('0');
 
-export default App;
+  //initial count as 0 
+  expect(count).toBeInTheDocument('0');
+
+  //increment count
+  fireEvent.click(incrementButton);
+
+  //count should be 1
+  expect(count).toBeInTheDocument('1');
+
+  //decrement count
+  fireEvent.click(decrementButton);
+
+  //count should be 0
+  expect(count).toBeInTheDocument('0');
+});
