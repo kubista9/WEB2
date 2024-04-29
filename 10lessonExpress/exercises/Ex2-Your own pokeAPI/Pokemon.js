@@ -2718,3 +2718,5 @@ export const POKEMON = [
         },
     },
 ]
+
+export { POKEMON }
