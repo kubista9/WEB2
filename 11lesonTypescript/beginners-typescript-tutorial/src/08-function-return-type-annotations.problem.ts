@@ -18,7 +18,7 @@ interface Post {
  * returns a user?
  */
 
-const makeUser= () : User => {
+const makeUser = () : User => {
   return ({
     id: 1,
     firstName: "Matt",
