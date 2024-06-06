@@ -65,7 +65,7 @@ function countChar(string, char){
 console.log(countBs("BBC"));
 console.log(countChar("kakkerlak","k"));
 
-solution 
+//solution 
 function countChar(string, ch) {
     let counted = 0
     for (let i = 0; i < string.length; i++) {
@@ -99,7 +99,7 @@ function range(start, end, step){
 }
 console.log(range(1, 10, 2))
 
-solution 
+//solution 
 function range(start, end, step = start < end ? 1 : -1) {
     let array = []
 
