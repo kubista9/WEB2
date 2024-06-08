@@ -194,9 +194,9 @@ function reverseArrayInPlace(array) {
 
 console.log(reverseArray(["A", "B", "C"]))
 // → ["C", "B", "A"];
-let arrayValue = [1, 2, 3, 4, 5]
-reverseArrayInPlace(arrayValue)
-console.log(arrayValue)
+let arrayValue2 = [1, 2, 3, 4, 5]
+reverseArrayInPlace(arrayValue2)
+console.log(arrayValue2)
 // → [5, 4, 3, 2, 1]
 
 //9. A List
